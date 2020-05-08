@@ -2,59 +2,23 @@
     font-size: 50px;
 }
 
-#section6 {
+/*Section 1*/
+
+/*Section 2*/
+#section2 {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#beef1 {
-    position: center;
-    margin: 10px;
-    padding-top: 50px;
-    padding-right: 30px;
-    padding-bottom: 50px;
-    padding-left: 80px;
-    opacity: 1;
-}
-
-
-#reforestation {
+#united {
     filter: grayscale(80%);
 }
+/*Section 3*/
 
-#arrow1 {
-    width: 200px;
-    height: 200px;
-    fill: black;
-    opacity: 1;
-    visibility: hidden;
-}
+/*Section 4*/
 
-#tree1 {
-    visibility: hidden;
-}
-
-
-.tree {
-    margin: 30px;
-}
-
-.interaction_transp {
-    opacity: 0.7;
-}
-
-.interaction_reforest {
-    opacity: 0.7;
-}
-
-.interaction_visible {
-
-    fill: black;
-}
-
-/*Section2*/
-
+/*Section 5*/
 #section5 {
     display: flex;
     justify-content: center;
@@ -88,14 +52,61 @@
     font-size: 30px;
     margin: 0px;
     line-height: 100%;
+    background-color: white;
 }
 
-#section2 {
+/*Section 6*/
+#section6 {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#united {
+#beef1 {
+    position: center;
+    margin: 10px;
+    padding-top: 50px;
+    padding-right: 30px;
+    padding-bottom: 50px;
+    padding-left: 80px;
+    opacity: 1;
+}
+
+#reforestation {
     filter: grayscale(80%);
 }
+
+#arrow1 {
+    width: 200px;
+    height: 200px;
+    fill: black;
+    opacity: 1;
+    visibility: hidden;
+}
+
+#tree1 {
+    visibility: hidden;
+}
+
+
+.tree {
+    margin: 30px;
+}
+
+.interaction_transp {
+    opacity: 0.7;
+}
+
+.interaction_reforest {
+    opacity: 0.7;
+}
+
+.interaction_visible {
+    fill: black;
+}
+
+/*Section 7*/
+
+/*Section 8*/
+
+/*Section 9*/
