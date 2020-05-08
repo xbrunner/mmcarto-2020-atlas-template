@@ -1,0 +1,100 @@
+.text_section {
+    font-size: 50px;
+}
+
+#section1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#beef1 {
+    position: center;
+    margin: 10px;
+    padding-top: 50px;
+    padding-right: 30px;
+    padding-bottom: 50px;
+    padding-left: 80px;
+    opacity: 1;
+}
+
+
+#reforestation {
+    filter: grayscale(80%);
+}
+
+#arrow1 {
+    width: 200px;
+    height: 200px;
+    fill: black;
+    opacity: 1;
+    visibility: hidden;
+}
+
+#tree1 {
+    visibility: hidden;
+}
+
+
+.tree {
+    margin: 30px;
+}
+
+.interaction_transp {
+    opacity: 0.7;
+}
+
+.interaction_reforest {
+    opacity: 0.7;
+}
+
+.interaction_visible {
+
+    fill: black;
+}
+
+/*Section2*/
+
+#section2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+
+.meat_type {
+    position: center;
+    margin: 10px;
+    padding-top: 50px;
+    padding-right: 30px;
+    padding-bottom: 50px;
+    padding-left: 80px;
+}
+
+.land_use {
+    fill: #808080;
+    opacity: 1;
+}
+
+.land_use:hover {
+    fill: #7CFC00;
+}
+
+#betail {
+    filter: grayscale(80%);
+}
+
+#default_meat {
+    font-size: 30px;
+    margin: 0px;
+}
+
+#section4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#united {
+    filter: grayscale(80%);
+}

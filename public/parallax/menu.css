@@ -1,0 +1,47 @@
+.menu-icon {
+	position: fixed;
+	top: 10px;
+	left: 10px;
+	width: 39px;
+	height: 39px;
+	z-index: 2;
+	
+	background-image: url(menu.png);
+	background-color: white;
+	background-size: cover;
+	
+	cursor: pointer;
+}
+
+.menu-icon:hover .menu {
+	visibility: visible;
+}
+
+.menu {
+	visibility: hidden;
+	position: relative;
+	left: 39px;
+	width: 192px;
+	background-color: white;
+}
+
+.menu > a:nth-child(even) > .menu-item {
+  background-color: #EEEEEE;
+}
+
+.menu > a:nth-child(odd) > .menu-item {
+  background-color: #DDDDDD;
+}
+
+.menu-item {
+	padding: 6px;
+}
+
+.menu > a > .menu-item:hover {
+	background-color: grey;
+}
+
+.menu > a {
+	text-decoration: none;
+	color: black;
+}
