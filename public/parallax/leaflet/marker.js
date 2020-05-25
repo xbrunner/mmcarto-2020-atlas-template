@@ -1,20 +1,30 @@
-var map = L.map('leafletContainer', {
-	zoomControl: false
-}).setView([46.805, 7.156], 10);
+var mapFR = L.map('leafletContainer', {
+	minZoom: 10,
+	maxZoom: 13
+}).setView([46.722, 7.110], 10);
 
-L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
+var southWestFR = L.latLng(46.1, 6.0),
+northEastFR = L.latLng(47.3, 8.2);
+var boundsFR = L.latLngBounds(southWestFR, northEastFR);
+
+mapFR.setMaxBounds(boundsFR);
+mapFR.on('drag', function() {
+    mapFR.panInsideBounds(boundsFR, { animate: false });
+});
+
+var basemapFR = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
 	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map);
+});
 
-L.marker([46.805, 7.156]).addTo(map)
+L.marker([46.722, 7.110]).addTo(mapFR)
 	.bindPopup('Canton of Fribourg')
 	.openPopup();
+
+var myLayer;
 	
 L.control.zoom({
 	position: 'topright'
-}).addTo(map);
-
-
+}).addTo(mapFR);
 
 
 var bezirk = {
@@ -32,64 +42,69 @@ var bezirk = {
     ]
 };
 
-var myLayer = L.geoJSON().addTo(map);
+var myLayer = L.geoJSON();
 myLayer.addData(bezirk);
 
 function getColor(d) {
-    return d > 2.1 ? '#005a32' :
-           d > 1.8  ? '#238b45' :
-           d > 1.5  ? '#41ab5d' :
-           d > 1.2  ? '#74c476' :
-           d > 0.9   ? '#a1d99b' :
-           d > 0.6   ? '#c7e9c0' :
-           d > 0.3   ? '#e5f5e0' :
-                      '#f7fcf5';
+    return d > 2.0 ? '#006D2C' :
+           d > 1.5  ? '#31A354' :
+           d > 1.0  ? '#74C476' :
+           d > 0.6  ? '#A1D99B' :
+           d > 0.3  ? '#C7E9C0' :
+                      '#EDF8E9';
+
 };
 
 function meatIndexStyle(feature) {
     return {
         fillColor: getColor(feature.properties.index_meat),
-        weight: 2,
+        weight: 1,
         opacity: 1,
         color: 'white',
-        dashArray: '3',
-        fillOpacity: 0.6
+        fillOpacity: 0.7
     };
 };
 
 function poulIndexStyle(feature) {
     return {
         fillColor: getColor(feature.properties.index_poul),
-        weight: 2,
+        weight: 1,
         opacity: 1,
         color: 'white',
-        dashArray: '3',
-        fillOpacity: 0.6
+        fillOpacity: 0.7
     };
 };
 
-L.geoJson(bezirk, {style: meatIndexStyle}).addTo(map);
-
+var selectedFribourg
 
 function highlightFeature(e) {
+    if (selectedFribourg) {
+        if (mapFR.hasLayer(geojsonMeat)) {
+            geojsonMeat.resetStyle(selectedFribourg);
+        } else {
+            geojsonPoul.resetStyle(selectedFribourg);
+        }
+    }
+
     var layer = e.target;
 
     layer.setStyle({
-        weight: 3,
-        color: '#7F7F7F',
-        dashArray: '',
-        fillOpacity: 0.9
+        weight: 2,
+        color: '#666',
+        fillOpacity: 0.7
     });
 
     if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
         layer.bringToFront();
     }
     info.update(layer.feature.properties);
+
+    selectedFribourg = layer;
 };
 
 
 function resetHighlight(e) {
-    if (map.hasLayer(geojsonMeat)) {
+    if (mapFR.hasLayer(geojsonMeat)) {
         geojsonMeat.resetStyle(e.target);
     } else {
         geojsonPoul.resetStyle(e.target);
@@ -97,40 +112,44 @@ function resetHighlight(e) {
     info.update();
 };
 
-
-
 function zoomToFeature(e) {
-    map.fitBounds(e.target.getBounds());
+    mapFR.fitBounds(e.target.getBounds());
 };
 
 function onEachFeature(feature, layer) {
     layer.on({
         mouseover: highlightFeature,
         mouseout: resetHighlight,
-        click: zoomToFeature
+        click: highlightFeature,
     });
 }
 
-geojsonMeat = L.geoJson(bezirk, {
+var geojsonMeat = L.geoJson(bezirk, {
     style: meatIndexStyle,
     onEachFeature: onEachFeature
 });
 
-geojsonPoul = L.geoJson(bezirk, {
+var geojsonPoul = L.geoJson(bezirk, {
     style: poulIndexStyle,
     onEachFeature: onEachFeature
 });
+
+var basemapsFR = {
+    "Basemap" : basemapFR
+};
 
 var overlaymaps = {
     "All meat types (today)": geojsonMeat,
     "Only poultry (scenario)": geojsonPoul
 };
-L.control.layers(overlaymaps).addTo(map);
-geojsonMeat.addTo(map);
+L.control.layers(overlaymaps).addTo(mapFR);
+
+basemapFR.addTo(mapFR);
+geojsonMeat.addTo(mapFR);
 
 var info = L.control();
 
-info.onAdd = function (map) {
+info.onAdd = function (mapFR) {
     this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
     this.update();
     return this._div;
@@ -139,11 +158,11 @@ info.onAdd = function (map) {
 // method that we will use to update the control based on feature properties passed
 info.update = function (props) {
 
-    if (map.hasLayer(geojsonMeat)) {
+    if (mapFR.hasLayer(geojsonMeat)) {
 
-        this._div.innerHTML = '<h4>District </h4>' +  (props ?
-            '<b>' + props.NAME + '</b><br />' + 'Meat index: ' + props.index_meat
-            : 'Interact with the districts!');
+        this._div.innerHTML = '<h4>Land use index </h4>' +  (props ?
+            '<b>' + props.NAME + '</b><br />' + props.index_meat
+            : 'Hover over a district');
     } else {
         this._div.innerHTML = '<h4>Land use index</h4>' +  (props ?
             '<b>' + props.NAME + '</b><br />' + props.index_poul
@@ -151,25 +170,24 @@ info.update = function (props) {
     }
 };
 
-info.addTo(map);
+info.addTo(mapFR);
 
 
 var legend = L.control({position: 'bottomright'});
 
-legend.onAdd = function (map) {
+legend.onAdd = function (mapFR) {
 
     var div = L.DomUtil.create('div', 'info legend'),
-        grades = [0.3, 0.6, 0.9, 1.2, 1.5, 1.8, 2.1],
+        grades = [0.0, 0.3, 0.6, 1.0, 1.5, 2.0],
         labels = ['<strong> Land use index </strong>'];
 
-    // loop through our density intervals and generate a label with a colored square for each interval
     // loop through our density intervals and generate a label with a colored square for each interval
     for (var i = 0; i < grades.length; i++) {
         from = grades [i];
         to = grades[i+1];
 
         labels.push(
-            '<i style="background:' + getColor(from + 0.1) + '"></i> ' +
+            '<i style="background:' + getColor(from + 0.001) + '"></i> ' +
             from + (to ? '&ndash;' + to : '+'));
     }
     div.innerHTML = labels.join('<br>');
@@ -177,6 +195,6 @@ legend.onAdd = function (map) {
 
 };
 
-legend.addTo(map);
+legend.addTo(mapFR);
 
 

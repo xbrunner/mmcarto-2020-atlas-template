@@ -1,56 +1,6 @@
-/// Section 1
-
-var rechteck = document.getElementsByClassName("land_beef1");
-
-for (var i = 0; i < rechteck.length; i++) {
-
-    rechteck[i].addEventListener('mouseover', mouseOverEffect1);
-    rechteck[i].addEventListener('mouseout', mouseOutEffect1);
-}
-
-
-function mouseOverEffect1() {
-    this.classList.add("interaction_transp");
-    setTimeout(arrowVisible, 500); //Wait 0.5 sec
-    setTimeout(treeVisible, 1500); //Wait 1.5 sec
-    setTimeout(reforestationVisible, 1500); //Wait 1.5 sec
-}
-function mouseOutEffect1() {
-    this.classList.remove("interaction_transp");
-    setTimeout(arrowHide, 0); //Wait 5 sec
-    setTimeout(treeHide, 10000); //Wait 10 sec
-    setTimeout(reforestationHide, 10000); //Wait 10 sec
-}
-
-// Visible functions
-function arrowVisible() {document.getElementById("arrow1").style.visibility = "visible";}
-function treeVisible() {document.getElementById("tree1").style.visibility = "visible";}
-function reforestationVisible() {document.getElementById("reforestation").style.filter = 'grayscale(0%)';}
-//Hide funtions
-function arrowHide() {document.getElementById("arrow1").style.visibility = "hidden";}
-function treeHide() {document.getElementById("tree1").style.visibility = "hidden";}
-function reforestationHide() {document.getElementById("reforestation").style.filter = 'grayscale(80%)';}
-
-/// Section 2
-var rechteck2 = document.getElementsByClassName("land_use");
-
-for (var i = 0; i < rechteck2.length; i++) {
-
-    rechteck2[i].addEventListener('mouseover', mouseOverEffect2);
-    rechteck2[i].addEventListener('mouseout', mouseOutEffect2);
-}
-
-function mouseOverEffect2() {
-    setTimeout(betailVisible, 500); //Wait 0.5 sec
-}
-function mouseOutEffect2() {
-    document.getElementById("betail").style.filter = 'grayscale(80%)';
-}
-// Timing functions
-function betailVisible() {document.getElementById("betail").style.filter = 'grayscale(0%)';}
-
+/// Section 5
 //Land Uses
-var mutton_land = document.getElementById("land_use_mutton");
+var mutton_land = document.getElementById("mutton");
 var beef_land = document.getElementById("beef");
 var pork_land = document.getElementById("pork");
 var chicken_land = document.getElementById("chicken");
@@ -58,40 +8,69 @@ var chicken_land = document.getElementById("chicken");
 // Event Listeners
 // Mutton
 mutton_land.onmouseover =(
-function mouseOverEffectMutton() {
-    document.getElementById("default_meat").innerHTML = "Mutton meat: <br><b>180 m<sup>2</sup></b><br> (per 100g proteins)";
-});
+    function mouseOverEffectMutton() {
+        document.getElementById("default_meat").innerHTML = "Mutton meat: <br><b>180 m<sup>2</sup></b><br> (per 100g proteins)";
+        document.getElementById("land_use_mutton").style.fill = '#7CFC00';
+    });
 mutton_land.onmouseout = (
-function mouseOutEffectMutton() {
-    document.getElementById('default_meat').innerHTML = 'Meat type: <br>choose a meet type!<br> (per 100g proteins)';
-});
+    function mouseOutEffectMutton() {
+        document.getElementById('default_meat').innerHTML = 'Choose to see <br><b> surface in [m<sup>2</sup>]</b><br> (per 100g proteins)';
+        document.getElementById("land_use_mutton").style.fill = '#808080'
+    });
 
 // Beef
 beef_land.onmouseover =(
     function mouseOverEffectMutton() {
         document.getElementById("default_meat").innerHTML = "Beef meat: <br><b>160 m<sup>2</sup></b><br> (per 100g proteins)";
+        document.getElementById("land_use_beef").style.fill = '#7CFC00';
     });
 beef_land.onmouseout = (
     function mouseOutEffectMutton() {
-        document.getElementById('default_meat').innerHTML = 'Meat type: <br>choose a meet type!<br> (per 100g proteins)';
+        document.getElementById('default_meat').innerHTML = 'Choose to see <br><b> surface in [m<sup>2</sup>]</b><br> (per 100g proteins)';
+        document.getElementById("land_use_beef").style.fill = '#808080'
     });
 
 // Pork
 pork_land.onmouseover =(
     function mouseOverEffectMutton() {
         document.getElementById("default_meat").innerHTML = "Pork meat: <br><b>10 m<sup>2</sup></b><br> (per 100g proteins)";
+        document.getElementById("land_use_pork").style.fill = '#7CFC00';
     });
 pork_land.onmouseout = (
     function mouseOutEffectMutton() {
-        document.getElementById('default_meat').innerHTML = 'Meat type: <br>choose a meet type!<br> (per 100g proteins)';
+        document.getElementById('default_meat').innerHTML = 'Choose to see <br><b> surface in [m<sup>2</sup>]</b><br> (per 100g proteins)';
+        document.getElementById("land_use_pork").style.fill = '#808080'
     });
 
 // Chicken
 chicken_land.onmouseover =(
     function mouseOverEffectMutton() {
         document.getElementById("default_meat").innerHTML = "Chicken meat: <br><b>7 m<sup>2</sup></b><br> (per 100g proteins)";
+        document.getElementById("land_use_chicken").style.fill = '#7CFC00';
     });
 chicken_land.onmouseout = (
     function mouseOutEffectMutton() {
-        document.getElementById('default_meat').innerHTML = 'Meat type: <br>choose a meet type!<br> (per 100g proteins)';
+        document.getElementById('default_meat').innerHTML = 'Choose to see <br><b> surface in [m<sup>2</sup>]</b><br> (per 100g proteins)';
+        document.getElementById("land_use_chicken").style.fill = '#808080'
     });
+
+
+/// Section 6
+var rechteck = document.getElementById("beef1");
+
+rechteck.onmouseover = (
+    function mouseOverEffectRechteck() {
+        document.getElementById("arrow1").style.visibility = "visible";
+        document.getElementById("tree1").style.visibility = "visible";
+        document.getElementById("beef_reforestation").style.opacity = '0.7';
+    });
+rechteck.onmouseout = (
+    function mouseOutEffectRechteck() {
+        document.getElementById("arrow1").style.visibility = "hidden";
+        document.getElementById("tree1").style.visibility = "hidden";
+        document.getElementById("beef_reforestation").style.opacity = '1';
+
+    });
+
+
+
